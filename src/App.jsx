@@ -20,6 +20,8 @@ function ProtectedShell() {
           <Route path="/" element={<Dashboard />} />
           <Route path="/alerts" element={<Alerts />} />
           <Route path="/alerts/:id" element={<AlertDetail />} />
+          {/* Email verification links point here: /verify/:alertId?token=... */}
+          <Route path="/verify/:id" element={<AlertDetail />} />
           <Route path="/members" element={<Members />} />
         </Routes>
       </div>
