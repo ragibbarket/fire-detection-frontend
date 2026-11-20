@@ -5,7 +5,7 @@ import { useAuth } from "../context/AuthContext";
 
 export default function Login() {
   const [mode, setMode] = useState("login"); // "login" | "register-owner"
-  const [form, setForm] = useState({ deviceId: "esp32-01", name: "", email: "", password: "" });
+  const [form, setForm] = useState({ deviceId: "esp32-01", name: "", email: "", phone: "", password: "" });
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const { loginSuccess } = useAuth();
@@ -23,7 +23,7 @@ export default function Login() {
       const result =
         mode === "login"
           ? await login(form.email, form.password)
-          : await registerOwner(form.deviceId, form.name, form.email, form.password);
+          : await registerOwner(form.deviceId, form.name, form.email, form.phone, form.password);
       loginSuccess(result.token, result.user, result.memberships);
       navigate("/");
     } catch (err) {
@@ -90,6 +90,22 @@ export default function Login() {
 
           <label style={{ fontSize: 12, color: "var(--text-secondary)" }}>Email</label>
           <input type="email" style={inputStyle} value={form.email} onChange={(e) => update("email", e.target.value)} required />
+
+          {mode === "register-owner" && (
+            <>
+              <label style={{ fontSize: 12, color: "var(--text-secondary)" }}>Phone number (for SMS alerts)</label>
+              <input
+                type="tel"
+                style={inputStyle}
+                value={form.phone}
+                onChange={(e) => update("phone", e.target.value)}
+                placeholder="01XXXXXXXXX or +8801XXXXXXXXX"
+                pattern="(\+[1-9][0-9]{7,14}|01[0-9]{9})"
+                title="Enter a valid phone number, e.g. 01712345678 or +8801712345678"
+                required
+              />
+            </>
+          )}
 
           <label style={{ fontSize: 12, color: "var(--text-secondary)" }}>Password</label>
           <input type="password" style={inputStyle} value={form.password} onChange={(e) => update("password", e.target.value)} required minLength={8} />

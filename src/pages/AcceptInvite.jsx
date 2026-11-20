@@ -6,7 +6,7 @@ import { useAuth } from "../context/AuthContext";
 export default function AcceptInvite() {
   const [searchParams] = useSearchParams();
   const token = searchParams.get("token");
-  const [form, setForm] = useState({ name: "", password: "" });
+  const [form, setForm] = useState({ name: "", phone: "", password: "" });
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const { loginSuccess } = useAuth();
@@ -28,7 +28,7 @@ export default function AcceptInvite() {
     setError(null);
     setLoading(true);
     try {
-      const result = await acceptInvite(token, form.name, form.password);
+      const result = await acceptInvite(token, form.name, form.phone, form.password);
       loginSuccess(result.token, result.user);
       navigate("/");
     } catch (err) {
@@ -60,6 +60,18 @@ export default function AcceptInvite() {
         <form onSubmit={handleSubmit}>
           <label style={{ fontSize: 12, color: "var(--text-secondary)" }}>Your name</label>
           <input style={inputStyle} value={form.name} onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))} required />
+
+          <label style={{ fontSize: 12, color: "var(--text-secondary)" }}>Phone number (for SMS alerts)</label>
+          <input
+            type="tel"
+            style={inputStyle}
+            value={form.phone}
+            onChange={(e) => setForm((f) => ({ ...f, phone: e.target.value }))}
+            placeholder="01XXXXXXXXX or +8801XXXXXXXXX"
+            pattern="(\+[1-9][0-9]{7,14}|01[0-9]{9})"
+            title="Enter a valid phone number, e.g. 01712345678 or +8801712345678"
+            required
+          />
 
           <label style={{ fontSize: 12, color: "var(--text-secondary)" }}>Choose a password</label>
           <input

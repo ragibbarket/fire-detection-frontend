@@ -52,11 +52,11 @@ export const labelReading = (readingId, label) =>
 export const login = (email, password) =>
   api.post("/api/auth/login", { email, password }).then((r) => r.data);
 
-export const registerOwner = (deviceId, name, email, password) =>
-  api.post("/api/auth/register-owner", { deviceId, name, email, password }).then((r) => r.data);
+export const registerOwner = (deviceId, name, email, phone, password) =>
+  api.post("/api/auth/register-owner", { deviceId, name, email, phone, password }).then((r) => r.data);
 
-export const acceptInvite = (token, name, password) =>
-  api.post("/api/auth/accept-invite", { token, name, password }).then((r) => r.data);
+export const acceptInvite = (token, name, phone, password) =>
+  api.post("/api/auth/accept-invite", { token, name, phone, password }).then((r) => r.data);
 
 // ---- device members (owner-only actions enforced server-side too) ----
 export const getMembers = (deviceId) =>
