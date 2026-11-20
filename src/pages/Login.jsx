@@ -82,7 +82,7 @@ export default function Login() {
           {mode === "register-owner" && (
             <>
               <label style={{ fontSize: 12, color: "var(--text-secondary)" }}>Device ID</label>
-              <input style={inputStyle} value={form.deviceId} onChange={(e) => update("deviceId", e.target.value)} required />
+              <input style={{ ...inputStyle, opacity: 0.7, cursor: "not-allowed" }} value={form.deviceId} readOnly required />
               <label style={{ fontSize: 12, color: "var(--text-secondary)" }}>Your name</label>
               <input style={inputStyle} value={form.name} onChange={(e) => update("name", e.target.value)} required />
             </>
