@@ -5,7 +5,7 @@ import { useAuth } from "../context/AuthContext";
 
 export default function Login() {
   const [mode, setMode] = useState("login"); // "login" | "register-owner"
-  const [form, setForm] = useState({ deviceId: "esp32-01", name: "", email: "", phone: "", password: "" });
+  const [form, setForm] = useState({ deviceId: "", name: "", email: "", phone: "", password: "" });
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const { loginSuccess } = useAuth();
@@ -82,7 +82,7 @@ export default function Login() {
           {mode === "register-owner" && (
             <>
               <label style={{ fontSize: 12, color: "var(--text-secondary)" }}>Device ID</label>
-              <input style={{ ...inputStyle, opacity: 0.7, cursor: "not-allowed" }} value={form.deviceId} readOnly required />
+              <input style={inputStyle} value={form.deviceId} onChange={(e) => update("deviceId", e.target.value)} placeholder="Enter your device ID" required />
               <label style={{ fontSize: 12, color: "var(--text-secondary)" }}>Your name</label>
               <input style={inputStyle} value={form.name} onChange={(e) => update("name", e.target.value)} required />
             </>
