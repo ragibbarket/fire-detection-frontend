@@ -34,6 +34,12 @@ export default function Nav() {
     <div
       style={{
         width: 220,
+        flexShrink: 0,
+        position: "sticky",
+        top: 0,
+        height: "100vh",
+        boxSizing: "border-box",
+        overflowY: "auto",
         borderRight: "1px solid var(--border)",
         padding: "24px 16px",
         display: "flex",
