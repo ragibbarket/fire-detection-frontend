@@ -24,7 +24,8 @@ export default function Members() {
     setLoading(true);
     try {
       const list = await getMembers(myDevice);
-      setMembers(list);
+      // Skip memberships whose user record no longer exists (user is null)
+      setMembers((list || []).filter((m) => m && m.user));
     } catch (err) {
       setError(err.response?.data?.error || "Failed to load team");
     } finally {
